@@ -14,6 +14,24 @@ The class should have the following methods:
 - getFoodInfo(): string, returns a string in the following format: "<name> has <calories> calories"
 */
 /* Write your Task 1 solution here */
+class Food {
+  name: string;
+  calories: number;
+  constructor(name: string, calories: number) {
+    this.name = name;
+    this.calories = calories;
+  }
+  getName(): string {
+    return this.name;
+  }
+  getFoodInfo(): string {
+    return `${this.name} has ${this.calories} calories`;
+  }
+  getCalories(): number {
+    return this.calories;
+  }
+}
+
 
 
 
@@ -39,7 +57,53 @@ The class should have the following methods:
   https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/splice
 */
 /* Write your Task 2 solution here */
+class Refrigerator {
+  public food: Food[];
+  constructor() {
+    this.food = [];
+  }
 
+  addFood(food: Food): void {
+    this.food.push(food);
+  }
+
+  getContents(): string[] {
+    let names: string[] = [];
+    for (let i = 0; i < this.food.length; i++) {
+      names.push(this.food[i].getName());
+    }
+    return names;
+  }
+
+  eatFood(foodName: string): string {
+    let foundIndex = -1;
+    for (let i = 0; i < this.food.length; i++) {
+      if (this.food[i].getName() === foodName) {
+        foundIndex = i;
+        break;
+      }
+    }
+    if (foundIndex === -1) {
+      return "There is no " + foodName + " in the refrigerator";
+    }
+    let foodObj = this.food[foundIndex];
+    this.food.splice(foundIndex, 1);
+    let calories = foodObj.getCalories();
+    return "You ate " + foodObj.getName() + " with " + calories + " calories";
+  }
+
+  getTotalCalories(): number {
+    let total = 0;
+    for (let i = 0; i < this.food.length; i++) {
+      total += this.food[i].getCalories();
+    }
+    return total;
+  }
+
+  getNumberOfFoodItems(): number {
+    return this.food.length;
+  }
+}
 
 
 export { Food, Refrigerator };
